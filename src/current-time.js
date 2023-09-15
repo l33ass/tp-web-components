@@ -1,17 +1,21 @@
 class CurrentTime extends HTMLElement {
-    constructor() {
-        super();
-        this.render();
-    }
 
+    /**
+     * Define attribute
+     */
     static get observedAttributes() {
         return ['format'];
     }
 
+    /**
+     * Update rendered elements on update
+     */
     attributeChangedCallback(attr, oldVal, newVal) {
         this[attr] = newVal;
-        this.$time.textContent = this.updateTime();
-        this.$title.textContent = this.updateTitle();
+
+        if (this.$time) {
+            this.render();
+        }
     }
 
     /**
@@ -19,6 +23,7 @@ class CurrentTime extends HTMLElement {
      * time update interval
      */
     connectedCallback() {
+        this.initialRender();
         this.setTimeUpdateInterval();
         this.setupHandlers();
     }
@@ -73,23 +78,31 @@ class CurrentTime extends HTMLElement {
     /**
      * Initial component render
      */
-    render() {
+    initialRender() {
         this.innerHTML = `
-            <section class='currentTime'>
-                <header class='currentTime__header'>
-                    <h2 class='currentTime__title'>${this.updateTitle()}</h2>
-                    <select>
-                        <option value='local'>--Timezone--</option>
-                        <option value='utc'>UTC</option>
-                        <option value='local'>Local</option>
-                    </select>
-                </header>
-                <time class='currentTime__time'>${this.updateTime()}</time>
-            </section>
+        <section class='currentTime'>
+            <header class='currentTime__header'>
+                <h2 class='currentTime__title'>${this.updateTitle()}</h2>
+                <select>
+                    <option value='local'>--Timezone--</option>
+                    <option value='utc'>UTC</option>
+                    <option value='local'>Local</option>
+                </select>
+            </header>
+            <time class='currentTime__time'>${this.updateTime()}</time>
+        </section>
         `;
         this.$time = this.querySelector('time');
         this.$title = this.querySelector('.currentTime__title');
         this.$select = this.querySelector('select');
+    }
+
+    /**
+     * Update render
+     */
+    render() {
+        this.$time.textContent = this.updateTime();
+        this.$title.textContent = this.updateTitle();
     }
 }
 customElements.define('current-time', CurrentTime);
