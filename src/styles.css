@@ -1,0 +1,27 @@
+:root {
+    --theme-light: #e6e6e6;
+}
+
+* {
+    font-family: Helvetica, sans-serif;
+}
+
+.currentTime {
+    background: var(--theme-light);
+    border-radius: 10px;
+    width: fit-content;
+    padding: 1rem;
+}
+
+.currentTime__title {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.currentTime__header {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: .5rem;
+    justify-content: space-between;
+    align-items: center;
+}
