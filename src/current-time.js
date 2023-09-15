@@ -1,4 +1,4 @@
-class CurrentTime extends HTMLElement {
+export class CurrentTime extends HTMLElement {
 
     /**
      * Define attribute
