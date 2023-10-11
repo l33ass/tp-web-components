@@ -10,8 +10,36 @@
 </head>
 
 <body>
+    <template id="custom-details">
+        <style>
+            details {
+                width: fit-content;
+                padding: 1rem 0;
+            }
+
+            ::slotted(ul) {
+                list-style: none;
+            }
+        </style>
+        <details>
+            <summary>
+                <slot name="summary"></slot>
+            </summary>
+            <div>
+                <slot name="content"></slot>
+            </div>
+        </details>
+    </template>
     <current-time></current-time>
     <screen-size unit="rem"></screen-size>
+    <custom-details>
+        <span slot="summary">Les 3 technologies des Web Components</span>
+        <ul slot="content">
+            <li>Custom elements</li>
+            <li>Shadow DOM</li>
+            <li>HTML Templates</li>
+        </ul>
+    </custom-details>
 </body>
 
 </html>
